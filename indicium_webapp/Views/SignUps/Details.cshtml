@@ -1,0 +1,116 @@
+@model SignUpViewModel
+
+@{
+    ViewData["Title"] = "Inschrijving details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Inschrijving details</h2>
+
+<div>
+    <h4>Inschrijving</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Activity.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Activity.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.StartDateTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Activity.StartDateTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.EndDateTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Activity.EndDateTime)
+        </dd>
+        <br/>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Sex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.Sex)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Birthday)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.Birthday)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.AddressStreet)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.AddressStreet)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.AddressNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.AddressNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.AddressPostalCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.AddressPostalCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.AddressCity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.AddressCity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.AddressCountry)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.AddressCountry)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.StudentNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.StudentNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.StartdateStudy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.StartdateStudy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.StudyType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.StudyType)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="Activities" asp-action="Details" asp-route-id="@Model.Activity.ActivityID" class="btn btn-default">Terug naar activiteitdetails</a>
+    <a asp-action="Index" class="btn btn-default">Terug naar overzicht</a>
+</div>

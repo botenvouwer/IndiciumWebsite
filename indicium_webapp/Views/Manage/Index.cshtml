@@ -1,0 +1,114 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Beheer je account";
+    var statusMessage = @ViewData["StatusMessage"];
+}
+
+@section Styles {
+    <style type="text/css">
+        dl dd ul {
+            list-style: none;
+            margin-bottom: 0px;
+            padding-left: 0px;
+        }
+    </style>
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Wijzig de instellingen van het account van @Html.DisplayFor(model => model.Name).</h4>
+    <hr />
+
+    @if (statusMessage != null && statusMessage != "")
+    {
+        <div class="alert alert-success alert-dismissible fade in text-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span>@statusMessage</span>
+        </div>
+    }
+
+    <h5>Accountsgegevens:</h5>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Email):</dt>
+        <dd>@Html.DisplayFor(model => model.Email) <a asp-controller="Manage" asp-action="ChangeEmail" class="btn-bracketed">Wijzig</a></dd>
+        <dt>Wachtwoord:</dt>
+        <dd>
+            <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Wijzig</a>
+        </dd>
+    </dl>
+
+    <h5>Contactgegevens:</h5>
+    <dl class="dl-horizontal">
+
+        <dt>@Html.DisplayNameFor(model => model.PhoneNumber):</dt>
+        <dd>@Html.DisplayFor(model => model.PhoneNumber)</dd>
+        <dd>
+            <a asp-controller="Manage" asp-action="ChangePhoneNumber" class="btn-bracketed">Wijzig</a>
+        </dd>
+    </dl>
+
+
+    <h5>Persoonsgegevens:</h5>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Birthday):</dt>
+        <dd>@Html.DisplayFor(model => model.Birthday)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Sex):</dt>
+        <dd>@Html.DisplayFor(model => model.Sex)</dd>
+        <dd>
+            <a asp-controller="Manage" asp-action="ChangePersonalInformation" class="btn-bracketed">Wijzig</a>
+        </dd>
+    </dl>
+
+    <h5>Adresgegevens:</h5>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.AddressStreet):</dt>
+        <dd>@Html.DisplayFor(model => model.AddressStreet)</dd>
+        <dt>@Html.DisplayNameFor(model => model.AddressNumber):</dt>
+        <dd>@Html.DisplayFor(model => model.AddressNumber)</dd>
+        <dt>@Html.DisplayNameFor(model => model.AddressPostalCode):</dt>
+        <dd>@Html.DisplayFor(model => model.AddressPostalCode)</dd>
+        <dt>@Html.DisplayNameFor(model => model.AddressCity):</dt>
+        <dd>@Html.DisplayFor(model => model.AddressCity)</dd>
+        <dt>@Html.DisplayNameFor(model => model.AddressCountry):</dt>
+        <dd>@Html.DisplayFor(model => model.AddressCountry)</dd>
+        <dd>
+            <a asp-controller="Manage" asp-action="ChangeAddressInformation" class="btn-bracketed">Wijzig</a>
+        </dd>
+    </dl>
+
+    <h5>Studiegegevens:</h5>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.StudentNumber):</dt>
+        <dd>@Html.DisplayFor(model => model.StudentNumber)</dd>
+        <dt>@Html.DisplayNameFor(model => model.StartdateStudy):</dt>
+        <dd>@Html.DisplayFor(model => model.StartdateStudy)</dd>
+        <dt>@Html.DisplayNameFor(model => model.StudyType):</dt>
+        <dd>@Html.DisplayFor(model => model.StudyType)</dd>
+        <dd>
+            <a asp-controller="Manage" asp-action="ChangeEducationalInformation" class="btn-bracketed">Wijzig</a>
+        </dd>
+    </dl>
+
+    @if (Model.Commissions.Any())
+    {
+        <h5>Commissiegegevens:</h5>
+        <dl class="dl-horizontal">
+            <dt>Commissies:</dt>
+            <dd>
+                <ul>
+                    @foreach (var commission in Model.Commissions)
+                    {
+                        <li>@commission.Commission.Name</li>
+                    }
+                </ul>
+            </dd>
+        </dl>
+    }
+
+    <h5>Lidmaatschap opzeggen</h5>
+    <p class="text-danger">Informatief stuk over hoe verschrikkelijk het opzeggen van een lidmaatschap wel niet is.</p>
+    <a asp-controller="Manage" asp-action="AbortMembership" class="btn-bracketed">Hef lidmaatschap op</a>
+</div>

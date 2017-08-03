@@ -1,0 +1,71 @@
+@model IEnumerable<ActivityViewModel>
+
+@{
+    ViewData["Title"] = "Activiteitenkalender";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var statusMessage = @ViewData["StatusMessage"];
+}
+
+<h2>Activiteitenkalender</h2>
+<hr />
+
+@if (statusMessage != null && statusMessage != "")
+{
+    <div class="alert alert-success alert-dismissible fade in text-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <span>@statusMessage</span>
+    </div>
+}
+
+@if (User.IsInRole("Bestuur") || User.IsInRole("Secretaris"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Toevoegen</a>
+        <a asp-action="Index" class="btn btn-default">Terug naar overzicht</a>
+    </p>
+}
+
+<div id="calendar"></div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,listMonth'
+                },
+                locale: 'nl',
+                events: function(start, end, timezone, callback) {
+                    $.ajax({
+                        url: '/api/v1/activities',
+                        dataType: 'json',
+                        success: function(doc) {
+                            var events = [];
+                            $(doc).each(function (index, val) {
+                                events.push({
+                                    title: val.name,
+                                    start: val.startDateTime,
+                                    end: val.endDateTime,
+                                    backgroundColor: val.activityType.backgroundColor,
+                                    borderColor: val.activityType.borderColor,
+                                    textColor: val.activityType.textColor,
+                                    url: '/activiteiten/details/' + val.activityID
+                                });
+                            });
+                            callback(events);
+                        },
+                        error: function() {
+                            alert('Mmm er is geen verbinding met de API.');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

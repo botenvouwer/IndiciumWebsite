@@ -1,0 +1,118 @@
+@model IEnumerable<ApplicationUserViewModel>
+
+@{
+    ViewData["Title"] = "persoonsgegevens";
+}
+
+<h2>Persoonsgegevens</h2>
+
+<hr />
+
+<form asp-action="Index" method="get" class="form-inline">
+    <div class="form-group">
+        <label>Naam</label>
+        <input type="text" name="NameFilter" class="form-control" value="@ViewData["NameFilter"]" />
+    </div>
+    <div class="form-group">
+        <label>Studie</label>
+        @Html.DropDownList("StudyFilter", (IEnumerable<SelectListItem>)Html.GetEnumSelectList<StudyType>(), string.Empty, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Status</label>
+        @Html.DropDownList("StatusFilter", (IEnumerable<SelectListItem>)Html.GetEnumSelectList<Status>(), string.Empty, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Filteren</button>
+        <a class="btn btn-default" role="button" asp-action="Index">Reset filters</a>
+    </div>
+</form>
+
+<p>Gebruikers met de status Nieuw of Uitgeschreven staan standaard niet in de lijst, alleen als er explicit om gevraagd wordt doormiddel van een filter hierboven.</p>
+
+<hr />
+
+<table class="table" id="userTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddressStreet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddressPostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddressCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressStreet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressPostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a class="btn btn-success" role="button" asp-action="Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+                @if (User.IsInRole("Secretaris"))
+                {
+                    <a class="btn btn-warning" role="button" asp-action="Edit" asp-route-id="@item.Id"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $('#userTable').DataTable({
+                searching: false,
+                pageLength: 25,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Dutch.json"
+                },
+                columnDefs: [
+                    {orderable: false, targets: 8}
+                ]
+            });
+        });
+    </script>
+}

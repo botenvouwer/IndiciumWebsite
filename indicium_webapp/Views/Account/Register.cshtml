@@ -1,0 +1,170 @@
+﻿@model RegisterViewModel
+@ViewData["Message"]
+
+@addTagHelper *, PaulMiami.AspNetCore.Mvc.Recaptcha
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>Inschrijfformulier Indicium</h2>
+
+<form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+    <h4>Algemene gegevens</h4>
+    <hr />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="FirstName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Email" class="form-control" />
+            <span class="text-info" style="display:block;">
+                <a id="suggestedemail" style="cursor:pointer"></a>
+            </span>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="ConfirmPassword" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Sex" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="Sex" asp-items="Html.GetEnumSelectList<Sex>()" class="form-control"></select>
+            <span asp-validation-for="Sex" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Birthday" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Birthday" class="form-control datetimepicker" placeholder="dd-mm-jjjj" />
+            <span asp-validation-for="Birthday" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressPostalCode" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input id="zip_code" asp-for="AddressPostalCode" class="form-control" />
+            <span asp-validation-for="AddressPostalCode" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressStreet" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input id="street" asp-for="AddressStreet" class="form-control" />
+            <span asp-validation-for="AddressStreet" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressNumber" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="AddressNumber" class="form-control" />
+            <span asp-validation-for="AddressNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressCity" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input id="city" asp-for="AddressCity" class="form-control" />
+            <span asp-validation-for="AddressCity" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressCountry" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input id="country" asp-for="AddressCountry" class="form-control" />
+            <span asp-validation-for="AddressCountry" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="StudentNumber" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="StudentNumber" class="form-control" />
+            <span asp-validation-for="StudentNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="StartdateStudy" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="StartdateStudy" class="form-control" placeholder="jjjj" />
+            <span asp-validation-for="StartdateStudy" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="StudyType" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="StudyType" asp-items="Html.GetEnumSelectList<StudyType>()" class="form-control"></select>
+            <span asp-validation-for="StudyType" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Commissions" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <p>Heb je interesse om mee te helpen in een of meerdere commissies?</p>
+            @Html.EditorFor(x => x.Commissions)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <recaptcha />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Registreren</button>
+        </div>
+    </div> 
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/custom/emailsuggestion.js"></script>
+    
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyCI6DDwVctCYDwSarPBjJKRsKjgz5gNa_o"></script>
+    <script src="~/js/custom/zipcodeapi.js"></script>
+
+    <recaptcha-script />
+
+    <script type="text/javascript">
+        // fullcalendar
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                locale: 'nl',
+                format: 'DD-MM-YYYY'
+            });
+        });
+    </script>
+
+}

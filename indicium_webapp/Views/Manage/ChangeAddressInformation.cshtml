@@ -1,0 +1,71 @@
+﻿@model ChangeAddressInformationViewModel
+@{
+    ViewData["Title"] = "Wijzig adresgegevens";
+}
+
+<h2>@ViewData["Title"].</h2>
+
+<form asp-controller="Manage" asp-action="ChangeAddressInformation" method="post" class="form-horizontal">
+    <h4>Persoonlijke Informatie</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="AddressPostalCode" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="AddressPostalCode" class="form-control" id="zip_code" />
+            <span asp-validation-for="AddressPostalCode" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressNumber" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="AddressNumber" class="form-control" />
+            <span asp-validation-for="AddressNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressStreet" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="AddressStreet" class="form-control" id="street" />
+            <span asp-validation-for="AddressStreet" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressCity" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="AddressCity" class="form-control" id="city" />
+            <span asp-validation-for="AddressCity" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressCountry" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="AddressCountry" class="form-control" id="country" />
+            <span asp-validation-for="AddressCountry" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Wijzig</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDy6oe9lYFKfmbEd2xxpnneVD2T6SC3AEY"></script>
+
+    <script src="~/js/custom/zipcodeapi.js"></script>
+
+    <script type="text/javascript">
+        // datetimepicker
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                locale: 'nl',
+                format: 'DD-MM-YYYY'
+            });
+        });
+    </script>
+}
+
